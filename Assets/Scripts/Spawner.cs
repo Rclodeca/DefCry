@@ -7,9 +7,9 @@ public class Spawner : MonoBehaviour
     private float timer;
     private float timeBetweenSpawns = 3f;
     private bool on = false;
-    public Vector3[] spawnLocations = new Vector3[4] {
-        new Vector3(-6, 0),
-        new Vector3(6, 0),
+    private Vector3[] spawnLocations = new Vector3[4] {
+        new Vector3(-7, 0),
+        new Vector3(7, 0),
         new Vector3(0, 5),
         new Vector3(0, -5)
     };

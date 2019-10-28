@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     private Player player;
     private const float speed = 1f;
 
+    public Animator animator;
+
     private Rigidbody2D rb;
     void Awake()
     {
@@ -20,13 +22,41 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if(player == null)
+        handleMovement();
+    }
+
+    private void handleMovement()
+    {
+        //dont move if player is dead
+        if (player == null)
         {
             rb.MovePosition(new Vector2(transform.position.x, transform.position.y));
-        } else
-        {
-            transform.position = (Vector3.MoveTowards(transform.position, player.getPosition(), speed * Time.deltaTime));
+            animator.SetFloat("Horizontal", 0);
+            animator.SetFloat("Vertical", 0);
+            return;
         }
+        
+        //calculate new position
+        Vector3 newPosition = Vector3.MoveTowards(transform.position, player.getPosition(), speed * Time.deltaTime);
+        float xDirection = player.getPosition().x - transform.position.x;
+        float yDirection = player.getPosition().y - transform.position.y;
+
+        //set animation to walk towards player
+        if (xDirection != 0 && Mathf.Abs(xDirection) > Mathf.Abs(yDirection))
+        {
+            animator.SetFloat("Vertical", 0);
+            animator.SetFloat("Horizontal", xDirection);
+        }
+        else if (yDirection != 0)
+        {
+            animator.SetFloat("Horizontal", 0);
+            animator.SetFloat("Vertical", yDirection);
+        }
+
+        //walk towards player
+        transform.position = newPosition;
+
+        //rb.velocity = new Vector2(xDirection, yDirection);
         //rb.MovePosition(Vector3.MoveTowards(transform.position, player.getPosition(), speed * Time.deltaTime));
         /*Vector3 position = player.getPosition();
         rb.velocity = new Vector2(position.x, position.y);*/
