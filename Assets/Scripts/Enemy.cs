@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     private Player player;
     private const float speed = 1f;
+    private int health;
 
     public Animator animator;
 
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        health = 1;
     }
     void Start()
     {
@@ -27,8 +29,9 @@ public class Enemy : MonoBehaviour
 
     private void handleMovement()
     {
+        
         //dont move if player is dead
-        if (player == null)
+        if (player == null || health == 0)
         {
             rb.MovePosition(new Vector2(transform.position.x, transform.position.y));
             animator.SetFloat("Horizontal", 0);
@@ -74,6 +77,15 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void damage()
+    {
+        health = 0;
+        animator.SetBool("Dead", true);
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        transform.GetComponent<CircleCollider2D>().enabled = false;
+        //Destroy(gameObject);
+    }
+
     /*private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("hi");
@@ -86,7 +98,7 @@ public class Enemy : MonoBehaviour
     }*/
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Player")
+        if (collision.collider.tag == "Player" && health > 0)
         {
             player.takeDamage();
         }
