@@ -64,7 +64,7 @@ public class Spawner : MonoBehaviour
 
     public void spawnRandomEnemy()
     {
-        Enemy ork = Enemy.Create(spawnLocations[Random.Range(0, spawnLocations.Length)]);
+        Enemy ork = Enemy.Create(getDynamicLocation(Random.Range(0, 4)));
     }
 
     public void spawnFromAllLocations()
@@ -73,6 +73,30 @@ public class Spawner : MonoBehaviour
         {
             Enemy ork = Enemy.Create(location);
         }
+    }
+
+    private Vector3 getDynamicLocation(int side)
+    {
+        /*int side = Random.Range(0, spawnLocations.Length);*/
+        Vector3 location = spawnLocations[side];
+
+        switch (side)
+        {
+            case 0:
+                location.y = Random.Range(-5, 5);
+                break;
+            case 1:
+                location.y = Random.Range(-5, 5);
+                break;
+            case 2:
+                location.x = Random.Range(-7, 7);
+                break;
+            case 3:
+                location.x = Random.Range(-7, 7);
+                break;
+        }
+
+        return location;
     }
 
     public void startSpawn()

@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
         /*spawner = Spawner.Create();
         spawner.mode = "all";
         spawner.startSpawn();*/
-        Wave wave1 = Wave.Create();
+        Wave wave1 = Wave.Create(1);
         wave1.start();
         
     }

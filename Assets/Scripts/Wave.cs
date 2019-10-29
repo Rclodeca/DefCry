@@ -12,6 +12,9 @@ public class Wave : MonoBehaviour
     private Player player;
     private int numTypes = 9;
     private int counter = 0;
+    private int waveNumber;
+
+    public int wave = 1;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -23,37 +26,52 @@ public class Wave : MonoBehaviour
 
     void Update()
     {
+        switch (waveNumber)
+        {
+            case 1:
+                wave1Handle();
+                break;
+        }
+        
+    }
+
+    private void wave1Handle()
+    {
         if (active)
         {
             if (timer <= 0)
-            {   
+            {
                 spawner.setTimeBetweenSpawns(2f / (counter + 0.7f));
                 spawner.mode = "random";
 
-                if(counter == 2)
+                switch (counter)
                 {
-                    spawner.spawnFromAllLocations();
-                    spawner.spawnFromAllLocations();
+                    case 1:
+                        spawner.spawnFromAllLocations();
+                        break;
+                    case 2:
+                        spawner.spawnFromAllLocations();
+                        spawner.spawnFromAllLocations();
+                        break;
+                    case 6:
+                        spawner.stopSpawn();
+                        break;
+                    case 7:
+                        spawner.startSpawn();
+                        break;
+                    default:
+                        break;
                 }
-                else if(counter == 6)
-                {
-                    spawner.stopSpawn();
-                }
-                else if(counter == 7)
-                {
-                    spawner.startSpawn();
-                }
-                
 
                 counter++;
-                timer = timeBetweenSpawnTypes; 
+                timer = timeBetweenSpawnTypes;
             }
             else
             {
                 timer -= Time.deltaTime;
             }
         }
-        if(counter >= numTypes)
+        if (counter >= numTypes)
         {
             stop();
         }
@@ -71,10 +89,16 @@ public class Wave : MonoBehaviour
         spawner.stopSpawn();
     }
 
-    public static Wave Create()
+    private void setType(int type)
+    {
+        this.waveNumber = type;
+    }
+
+    public static Wave Create(int type)
     {
         Transform waveTransform = Instantiate(GameAssets.instance.pfWave, new Vector3(0, 0), Quaternion.identity);
         Wave wave = waveTransform.GetComponent<Wave>();
+        wave.setType(type);
 
         return wave;
     }
