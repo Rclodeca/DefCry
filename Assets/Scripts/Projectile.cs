@@ -32,6 +32,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+       // Debug.Log("here");
         if(collision.tag == "Wall")
         {
             Destroy(gameObject);
@@ -41,6 +42,7 @@ public class Projectile : MonoBehaviour
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
+
     }
 
     public static Projectile Create(Vector3 position, Vector3 direction)

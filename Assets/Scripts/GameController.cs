@@ -4,19 +4,30 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    private float timer;
+    private float waveTime;
+    private float breakTime;
+
+    private Player player;
+    private Spawner spawner;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Enemy.Create(new Vector3(-2, 3));
-        Spawner spawn = Spawner.Create();
-        spawn.startSpawn();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        spawner = Spawner.Create();
+        spawner.mode = "all";
+        spawner.startSpawn();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        //Projectile.Create(new Vector3(-2, 3), new Vector3(2, 5));
+        if(player == null)
+        {
+            spawner.stopSpawn();
+        }
     }
 }
