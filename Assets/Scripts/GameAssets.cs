@@ -14,4 +14,5 @@ public class GameAssets : MonoBehaviour
     public Transform pfProjectile;
     public Transform pfEnemy;
     public Transform pfSpawner;
+    public Transform pfWave;
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     private float timer;
-    public float timeBetweenSpawns = 3f;
+    private float timeBetweenSpawns = 3f;
     private bool active = false;
     private Vector3[] spawnLocations = new Vector3[4] {
         new Vector3(-7, 0),
@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        timer = timeBetweenSpawns;
+        timer = getTimeBetweenSpawns(); ;
     }
 
     void Update()
@@ -26,7 +26,7 @@ public class Spawner : MonoBehaviour
         if (timer <= 0)
         {
             handleSpawn();
-            timer = timeBetweenSpawns;
+            timer = getTimeBetweenSpawns();
         }
         else
         {
@@ -52,13 +52,22 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private void spawnRandomEnemy()
+    public void setTimeBetweenSpawns(float time)
     {
-        Enemy ork = Enemy.Create(spawnLocations[Random.Range(0, spawnLocations.Length)]);
-        timer = timeBetweenSpawns;
+        timeBetweenSpawns = time;
     }
 
-    private void spawnFromAllLocations()
+    private float getTimeBetweenSpawns()
+    {
+        return timeBetweenSpawns;
+    }
+
+    public void spawnRandomEnemy()
+    {
+        Enemy ork = Enemy.Create(spawnLocations[Random.Range(0, spawnLocations.Length)]);
+    }
+
+    public void spawnFromAllLocations()
     {
         foreach(Vector3 location in spawnLocations)
         {

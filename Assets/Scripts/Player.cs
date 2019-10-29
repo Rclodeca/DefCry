@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
             allowAttack(direction);
             timer = attackDuration;
         }
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
             state = "attack";
             if(direction.x > 0)
@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
                 animator.SetBool("ShootLeft", true);
             }
         }
-        if (Input.GetKeyUp(KeyCode.F)){
+        if (Input.GetKeyUp(KeyCode.Mouse0)){
             state = "neutral";
             animator.SetBool("ShootLeft", false);
             animator.SetBool("ShootRight", false);
@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
     }
     private void allowAttack(Vector3 direction)
     {
-        if (Input.GetKey(KeyCode.F)) 
+        if (Input.GetKey(KeyCode.Mouse0)) 
         {      
             Projectile.Create(getPosition(), direction);
         } 
