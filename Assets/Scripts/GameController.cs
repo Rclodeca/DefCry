@@ -10,13 +10,14 @@ public class GameController : MonoBehaviour
 
     private Player player;
     private Spawner spawner;
+    
    
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
+        
         /*spawner = Spawner.Create();
         spawner.mode = "all";
         spawner.startSpawn();*/

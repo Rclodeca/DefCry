@@ -8,18 +8,32 @@ public class Player : MonoBehaviour
 
     public Animator animator;
     public Rigidbody2D rb;
+    public SpriteRenderer sr;
+
+    public HealthSystem hs;
 
     private const float speed = 4f;
     private float attackDuration = 0.3f;
     private float timer;
     private string state = "neutral";
+    private int health;
+
+    private bool damageAnimation = false;
+    private float damageAnimationDuration = 3f;
+    private float damageAnimationTimer;
+    private float damageFlickerDuration = 0.1f;
+    private float damageFlickerTimer;
+    private bool damageFlicker = false;
+    
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = 3;
+        damageAnimationTimer = damageAnimationDuration;
+        damageFlickerTimer = damageFlickerDuration;
     }
 
     // Update is called once per frame
@@ -83,6 +97,7 @@ public class Player : MonoBehaviour
     {
         handleAttack();
         handlePlayerMovement();
+        handleDamageAnimation();
     }
     private void handleAttack()
     {
@@ -137,9 +152,47 @@ public class Player : MonoBehaviour
         return transform.position;
     }
 
+    private void handleDamageAnimation()
+    {
+        if (damageAnimation)
+        {
+            if (damageAnimationTimer <= 0)
+            {
+                damageAnimation = false;
+                sr.color = new Color(1f, 1f, 1f, 1f);
+                damageAnimationTimer = damageAnimationDuration;
+            }
+            else
+            {
+                damageAnimationTimer -= Time.deltaTime;
+
+                if (damageFlickerTimer <= 0)
+                {
+                    damageFlicker = !damageFlicker;
+                    sr.color = damageFlicker ? new Color(1f, 1f, 1f, 1f) : new Color(1f, 1f, 1f, .5f);
+                    damageFlickerTimer = damageFlickerDuration;
+                }
+                else
+                {
+                    damageFlickerTimer -= Time.deltaTime;
+
+                }
+            }
+        }
+    }
+
     public void takeDamage()
     {
+        health--;
+        hs.reduceHealth();
+        sr.color = new Color(1f, 1f, 1f, .5f);
+        damageAnimation = true;
+        damageAnimationTimer = damageAnimationDuration;
+        damageFlickerTimer = damageFlickerDuration;
 
-        Destroy(gameObject);
+        if (health == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

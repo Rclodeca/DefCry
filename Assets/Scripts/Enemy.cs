@@ -100,7 +100,9 @@ public class Enemy : MonoBehaviour
     {
         if (collision.collider.tag == "Player" && health > 0)
         {
+            damage();
             player.takeDamage();
+            //rb.velocity = new Vector2(0, 0);
         }
     }
 
