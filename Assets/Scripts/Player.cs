@@ -198,6 +198,12 @@ public class Player : MonoBehaviour
         if (health == 0)
         {
             Destroy(gameObject);
+        } else
+        {
+            foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                Destroy(enemy);
+            }
         }
     }
 }

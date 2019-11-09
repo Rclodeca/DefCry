@@ -22,7 +22,7 @@ public class Wave : MonoBehaviour
         int scene = SceneManager.GetActiveScene().buildIndex;
         if(scene == 3)
         {
-            numTypes = 10;
+            numTypes = 12;
         } else
         {
             numTypes = 9;
