@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Wave : MonoBehaviour
 {
@@ -10,18 +11,29 @@ public class Wave : MonoBehaviour
     private float timer;
     private Spawner spawner;
     private Player player;
-    private int numTypes = 9;
+    private int numTypes;
     private int counter = 0;
     private int waveNumber;
 
+    public bool waveComplete = false;
     public int wave = 1;
     void Start()
     {
+        int scene = SceneManager.GetActiveScene().buildIndex;
+        if(scene == 3)
+        {
+            numTypes = 10;
+        } else
+        {
+            numTypes = 9;
+        }
+        
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
         spawner = Spawner.Create();
         timer = timeBetweenSpawnTypes;
         spawner.startSpawn();
+
     }
 
     void Update()
@@ -87,6 +99,7 @@ public class Wave : MonoBehaviour
     {
         active = false;
         spawner.stopSpawn();
+        waveComplete = true;
     }
 
     private void setType(int type)

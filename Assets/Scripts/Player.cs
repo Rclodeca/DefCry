@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 
@@ -24,9 +25,12 @@ public class Player : MonoBehaviour
     private float damageFlickerDuration = 0.1f;
     private float damageFlickerTimer;
     private bool damageFlicker = false;
-    
 
 
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -183,6 +187,7 @@ public class Player : MonoBehaviour
 
     public void takeDamage()
     {
+        
         health--;
         hs.reduceHealth();
         sr.color = new Color(1f, 1f, 1f, .5f);

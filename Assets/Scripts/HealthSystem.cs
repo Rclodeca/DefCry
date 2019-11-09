@@ -11,6 +11,11 @@ public class HealthSystem : MonoBehaviour
 
     private int health;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
