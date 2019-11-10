@@ -26,6 +26,10 @@ public class Spawner : MonoBehaviour
         {
             superSpeed = 2f;
         }
+        else if (level == 3)
+        {
+            superSpeed = 3f;
+        }
         else
         {
             superSpeed = 1f;

@@ -19,11 +19,16 @@ public class Wave : MonoBehaviour
     public int wave = 1;
     void Start()
     {
-        int scene = SceneManager.GetActiveScene().buildIndex;
-        if(scene == 3)
+        int scene = SceneManager.GetActiveScene().buildIndex - 1;
+        if(scene == 2)
         {
-            numTypes = 12;
-        } else
+            numTypes = 10;
+        }
+        else if(scene == 3)
+        {
+            numTypes = 11;
+        }
+        else
         {
             numTypes = 9;
         }
@@ -69,6 +74,12 @@ public class Wave : MonoBehaviour
                         spawner.stopSpawn();
                         break;
                     case 7:
+                        spawner.startSpawn();
+                        break;
+                    case 10:
+                        spawner.stopSpawn();
+                        break;
+                    case 11:
                         spawner.startSpawn();
                         break;
                     default:

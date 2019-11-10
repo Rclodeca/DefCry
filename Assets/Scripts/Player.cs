@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = 3;
+        health = 7;
         damageAnimationTimer = damageAnimationDuration;
         damageFlickerTimer = damageFlickerDuration;
     }
@@ -198,6 +198,7 @@ public class Player : MonoBehaviour
         if (health == 0)
         {
             Destroy(gameObject);
+            SceneManager.LoadScene(5);
         } else
         {
             foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))

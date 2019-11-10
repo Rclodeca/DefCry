@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         
         /*spawner = Spawner.Create();
         spawner.mode = "all";
@@ -37,7 +37,11 @@ public class GameController : MonoBehaviour
         {
             if(timer <= 0)
             {
-                SceneManager.LoadScene(3);
+                if(SceneManager.GetActiveScene().buildIndex == 4)
+                {
+                    Destroy(player);
+                }
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             } else
             {
                 timer -= Time.deltaTime;
