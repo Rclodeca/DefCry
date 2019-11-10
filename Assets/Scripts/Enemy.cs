@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     private Player player;
-    private const float speed = 1f;
+    private float speed;
     private int health;
 
     public Animator animator;
@@ -64,12 +64,18 @@ public class Enemy : MonoBehaviour
         /*Vector3 position = player.getPosition();
         rb.velocity = new Vector2(position.x, position.y);*/
     }
-    public static Enemy Create(Vector3 position)
+    public static Enemy Create(Vector3 position, float speed)
     {
         Transform enemyTransform = Instantiate(GameAssets.instance.pfEnemy, position, Quaternion.identity);
         Enemy enemy = enemyTransform.GetComponent<Enemy>();
+        enemy.setSpeed(speed);
 
         return enemy;
+    }
+
+    public void setSpeed(float speed)
+    {
+        this.speed = speed;
     }
 
     public void kill()

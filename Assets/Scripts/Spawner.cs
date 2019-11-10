@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
@@ -13,12 +14,22 @@ public class Spawner : MonoBehaviour
         new Vector3(0, 5),
         new Vector3(0, -5)
     };
+    private float superSpeed;
 
     public string mode = "random";
 
     void Start()
     {
-        timer = getTimeBetweenSpawns(); ;
+        timer = getTimeBetweenSpawns();
+        int level = SceneManager.GetActiveScene().buildIndex - 1;
+        if (level == 2)
+        {
+            superSpeed = 2f;
+        }
+        else
+        {
+            superSpeed = 1f;
+        }
     }
 
     void Update()
@@ -64,14 +75,20 @@ public class Spawner : MonoBehaviour
 
     public void spawnRandomEnemy()
     {
-        Enemy ork = Enemy.Create(getDynamicLocation(Random.Range(0, 4)));
+        int randomSpeed = Random.Range(0, 4);
+        float speed = 1f;
+        if(randomSpeed == 3)
+        {
+            speed = superSpeed;
+        }
+        Enemy ork = Enemy.Create(getDynamicLocation(Random.Range(0, 4)), speed);
     }
 
     public void spawnFromAllLocations()
     {
         foreach(Vector3 location in spawnLocations)
         {
-            Enemy ork = Enemy.Create(location);
+            Enemy ork = Enemy.Create(location, 1f);
         }
     }
 
