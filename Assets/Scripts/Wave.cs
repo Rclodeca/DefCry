@@ -22,11 +22,11 @@ public class Wave : MonoBehaviour
         int scene = SceneManager.GetActiveScene().buildIndex - 1;
         if(scene == 2)
         {
-            numTypes = 10;
+            numTypes = 12;
         }
         else if(scene == 3)
         {
-            numTypes = 11;
+            numTypes = 13;
         }
         else
         {
@@ -64,11 +64,15 @@ public class Wave : MonoBehaviour
                 switch (counter)
                 {
                     case 1:
+                        //spawner.powerUp();
                         spawner.spawnFromAllLocations();
                         break;
                     case 2:
                         spawner.spawnFromAllLocations();
                         spawner.spawnFromAllLocations();
+                        break;
+                    case 5:
+                        spawner.powerUp();
                         break;
                     case 6:
                         spawner.stopSpawn();
@@ -76,11 +80,17 @@ public class Wave : MonoBehaviour
                     case 7:
                         spawner.startSpawn();
                         break;
+                    case 9:
+                        spawner.powerUp();
+                        break;
                     case 10:
                         spawner.stopSpawn();
                         break;
                     case 11:
                         spawner.startSpawn();
+                        break;
+                    case 12:
+                        spawner.powerUp();
                         break;
                     default:
                         break;

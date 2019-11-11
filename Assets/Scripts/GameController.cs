@@ -40,8 +40,11 @@ public class GameController : MonoBehaviour
                 if(SceneManager.GetActiveScene().buildIndex == 4)
                 {
                     Destroy(player);
-                }
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                    SceneManager.LoadScene(6);
+                } else
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }             
             } else
             {
                 timer -= Time.deltaTime;

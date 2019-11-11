@@ -79,9 +79,9 @@ public class Spawner : MonoBehaviour
 
     public void spawnRandomEnemy()
     {
-        int randomSpeed = Random.Range(0, 4);
+        int randomSpeed = Random.Range(0, 5);
         float speed = 1f;
-        if(randomSpeed == 3)
+        if(randomSpeed == 4)
         {
             speed = superSpeed;
         }
@@ -94,6 +94,14 @@ public class Spawner : MonoBehaviour
         {
             Enemy ork = Enemy.Create(location, 1f);
         }
+    }
+
+    public void powerUp()
+    {
+        if(GameObject.FindGameObjectsWithTag("PowerUp").Length == 0)
+        {
+            PowerUp pu = PowerUp.Create(new Vector3(0, 0));
+        } 
     }
 
     private Vector3 getDynamicLocation(int side)

@@ -9,6 +9,8 @@ TagManager:
   - health1
   - health2
   - health3
+  - PowerUp
+  - HealthSystem
   layers:
   - Default
   - TransparentFX

@@ -1000,6 +1000,8 @@ MonoBehaviour:
   pfSpawner: {fileID: 3552450113884987988, guid: 311a2c4584089af43803ddf0a6790498,
     type: 3}
   pfWave: {fileID: 4284668740558356164, guid: 5dae14d5e1adb20408846274441716ba, type: 3}
+  pfPowerUp: {fileID: 4735361086924232732, guid: 96dd73bf522a97d488ea603469bbf93a,
+    type: 3}
 --- !u!4 &1187398172
 Transform:
   m_ObjectHideFlags: 0

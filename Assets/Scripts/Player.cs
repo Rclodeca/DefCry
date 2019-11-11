@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public SpriteRenderer sr;
 
     public HealthSystem hs;
+    public AudioSource audio;
 
     private const float speed = 4f;
     private float attackDuration = 0.3f;
@@ -26,6 +27,13 @@ public class Player : MonoBehaviour
     private float damageFlickerTimer;
     private bool damageFlicker = false;
 
+    private float powerUpTimer;
+    private float powerUpDuration = 7f;
+    private bool powerUpActive = false;
+    private int powerUpType;
+
+
+
 
     void Awake()
     {
@@ -35,9 +43,11 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = 7;
+        health = 3;
         damageAnimationTimer = damageAnimationDuration;
         damageFlickerTimer = damageFlickerDuration;
+        powerUpTimer = powerUpDuration;
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -102,6 +112,7 @@ public class Player : MonoBehaviour
         handleAttack();
         handlePlayerMovement();
         handleDamageAnimation();
+        handlePowerUp();
     }
     private void handleAttack()
     {
@@ -134,9 +145,104 @@ public class Player : MonoBehaviour
     private void allowAttack(Vector3 direction)
     {
         if (Input.GetKey(KeyCode.Mouse0)) 
-        {      
-            Projectile.Create(getPosition(), direction);
+        {
+            //xAttack();
+            if (powerUpActive)
+            {
+                if (powerUpType == 0)
+                {
+                    xAttack();
+                }
+                else
+                {
+                    shotGunAttack(direction);
+                }
+            }
+            else
+            {
+                Projectile.Create(getPosition(), direction);
+            }
         } 
+    }
+
+    private void xAttack()
+    {
+        Projectile.Create(getPosition(), new Vector3(1, 1).normalized);
+        Projectile.Create(getPosition(), new Vector3(1, -1).normalized);
+        Projectile.Create(getPosition(), new Vector3(-1, -1).normalized);
+        Projectile.Create(getPosition(), new Vector3(-1, 1).normalized);
+        Projectile.Create(getPosition(), new Vector3(1, 0).normalized);
+        Projectile.Create(getPosition(), new Vector3(0, -1).normalized);
+        Projectile.Create(getPosition(), new Vector3(-1, 0).normalized);
+        Projectile.Create(getPosition(), new Vector3(0, 1).normalized);
+    }
+
+    private void shotGunAttack(Vector3 direction)
+    {
+        if(Mathf.Abs(Mathf.Abs(direction.x) - Mathf.Abs(direction.y)) < 0.7)
+        {
+            if(direction.x > 0)
+            {
+                if(direction.y > 0)
+                {
+                    Projectile.Create(getPosition(), new Vector3(1, 1).normalized);
+                    Projectile.Create(getPosition(), new Vector3(1, 2f).normalized);
+                    Projectile.Create(getPosition(), new Vector3(1, 0.5f).normalized);
+                }
+                else
+                {
+                    Projectile.Create(getPosition(), new Vector3(1, -1).normalized);
+                    Projectile.Create(getPosition(), new Vector3(1, -2f).normalized);
+                    Projectile.Create(getPosition(), new Vector3(1, -0.5f).normalized);
+                }
+            }
+            else
+            {
+                if (direction.y > 0)
+                {
+                    Projectile.Create(getPosition(), new Vector3(-1, 1).normalized);
+                    Projectile.Create(getPosition(), new Vector3(-1, 2f).normalized);
+                    Projectile.Create(getPosition(), new Vector3(-1, 0.5f).normalized);
+                }
+                else
+                {
+                    Projectile.Create(getPosition(), new Vector3(-1, -1).normalized);
+                    Projectile.Create(getPosition(), new Vector3(-1, -2f).normalized);
+                    Projectile.Create(getPosition(), new Vector3(-1, -0.5f).normalized);
+                }
+            }
+            
+        }
+        else if (direction.x != 0 && Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            if (direction.x > 0)
+            {
+                Projectile.Create(getPosition(), new Vector3(1, 0));
+                Projectile.Create(getPosition(), new Vector3(1, .3f).normalized);
+                Projectile.Create(getPosition(), new Vector3(1, -0.3f).normalized);
+            }
+            else
+            {
+                Projectile.Create(getPosition(), new Vector3(-1, 0));
+                Projectile.Create(getPosition(), new Vector3(-1, .3f).normalized);
+                Projectile.Create(getPosition(), new Vector3(-1, -0.3f).normalized);
+            }
+        }
+        else
+        {
+            if (direction.y > 0)
+            {
+                Projectile.Create(getPosition(), new Vector3(0, 1));
+                Projectile.Create(getPosition(), new Vector3(.3f, 1).normalized);
+                Projectile.Create(getPosition(), new Vector3(-.3f, 1).normalized);
+            }
+            else
+            {
+                Projectile.Create(getPosition(), new Vector3(0, -1));
+                Projectile.Create(getPosition(), new Vector3(.3f, -1).normalized);
+                Projectile.Create(getPosition(), new Vector3(-.3f, -1).normalized);
+            }
+        }
     }
 
     private static Vector3 mousePosition()
@@ -206,5 +312,44 @@ public class Player : MonoBehaviour
                 Destroy(enemy);
             }
         }
+    }
+    public void powerUp()
+    {
+        
+        powerUpActive = true;
+        int choice = Random.Range(0, 5);
+        Debug.Log(choice);
+        if(choice > 1)
+        {
+            powerUpTimer = 12f;
+            powerUpType = 1;
+        }
+        else
+        {
+            powerUpType = 0;
+        }
+
+        powerUpAudio();
+    }
+
+    private void handlePowerUp()
+    {
+        if (powerUpActive)
+        {
+            if(powerUpTimer <= 0)
+            {
+                powerUpActive = false;
+                powerUpTimer = powerUpDuration;
+            }
+            else
+            {
+                powerUpTimer -= Time.deltaTime;
+            }
+        }
+    }
+
+    private void powerUpAudio()
+    {
+        audio.Play();
     }
 }
