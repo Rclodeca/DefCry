@@ -21,9 +21,6 @@ public class GameController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         
-        /*spawner = Spawner.Create();
-        spawner.mode = "all";
-        spawner.startSpawn();*/
         wave1 = Wave.Create(1);
         wave1.start();
         timer = finishDelay;
@@ -53,23 +50,4 @@ public class GameController : MonoBehaviour
         }
     }
 
-    /*private void handleWave()
-    {
-        if (timer <= 0)
-        {
-            spawner.stopSpawn();
-        }
-        else
-        {
-            timer -= Time.deltaTime;
-        }
-    }
-
-    private void waveType1(float timeLength, float timeBetweenSpawns)
-    {
-        spawner.mode = "random";
-        spawner.setTimeBetweenSpawns(2f);
-        timer = timeLength;
-        spawner.startSpawn();
-    }*/
 }

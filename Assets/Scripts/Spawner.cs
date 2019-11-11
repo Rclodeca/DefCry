@@ -106,7 +106,6 @@ public class Spawner : MonoBehaviour
 
     private Vector3 getDynamicLocation(int side)
     {
-        /*int side = Random.Range(0, spawnLocations.Length);*/
         Vector3 location = spawnLocations[side];
 
         switch (side)

@@ -76,36 +76,9 @@ public class Player : MonoBehaviour
             animator.SetFloat("Horizontal", horizontal);
         }
 
-       // Debug.Log(vertical);
-        //Vector3 movementDirection = new Vector3(horizontal, vertical).normalized;
         rb.velocity = new Vector2(horizontal, vertical).normalized * speed;
-        //transform.position += movementDirection * Time.deltaTime * useSpeed;
 
-
-        /*//Check if valid movement
-        if (isValidMovement(transform.position, movementDirection, useSpeed))
-        {
-            Debug.Log("valid");
-            transform.position += movementDirection * Time.deltaTime * useSpeed;
-        }
-        //If not, check if valid horizontal movement
-        else if (isValidMovement(transform.position, new Vector3(horizontal, 0f).normalized, useSpeed))
-        {
-            transform.position += new Vector3(horizontal, 0f).normalized * Time.deltaTime * useSpeed;
-        }
-        //If not, check if valid vertical movement
-        else if (isValidMovement(transform.position, new Vector3(0f, vertical).normalized, useSpeed))
-        {
-            transform.position += new Vector3(0f, vertical).normalized * Time.deltaTime * useSpeed;
-        }*/
     }
-
-   /* private bool isValidMovement(Vector3 position, Vector3 direction, float speed)
-    {
-        RaycastHit2D raycastHit = Physics2D.Raycast(position, direction, speed * Time.deltaTime);
-        //Debug.Log(raycastHit.collider.tag);
-        return raycastHit.collider == null || raycastHit.collider.tag != "Wall";
-    }*/
 
     void Update()
     {
@@ -146,7 +119,6 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0)) 
         {
-            //xAttack();
             if (powerUpActive)
             {
                 if (powerUpType == 0)
@@ -252,11 +224,6 @@ public class Player : MonoBehaviour
         return mouse;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }
-
     public Vector3 getPosition()
     {
         return transform.position;
@@ -318,7 +285,6 @@ public class Player : MonoBehaviour
         
         powerUpActive = true;
         int choice = Random.Range(0, 5);
-        Debug.Log(choice);
         if(choice > 1)
         {
             powerUpTimer = 12f;

@@ -64,7 +64,6 @@ public class Wave : MonoBehaviour
                 switch (counter)
                 {
                     case 1:
-                        //spawner.powerUp();
                         spawner.spawnFromAllLocations();
                         break;
                     case 2:
@@ -113,7 +112,6 @@ public class Wave : MonoBehaviour
     public void start()
     {
         active = true;
-        /*spawner.startSpawn();*/
     }
 
     public void stop()

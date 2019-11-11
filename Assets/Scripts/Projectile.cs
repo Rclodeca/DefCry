@@ -11,7 +11,6 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        //Vector2 curPosition = 
         transform.position += direction * speed * Time.deltaTime;
     }
 
@@ -32,7 +31,6 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       // Debug.Log("here");
         if(collision.tag == "Wall")
         {
             Destroy(gameObject);
@@ -40,7 +38,6 @@ public class Projectile : MonoBehaviour
         else if(collision.tag == "Enemy")
         {
             collision.gameObject.GetComponent<Enemy>().damage();
-            //Destroy(collision.gameObject);
             Destroy(gameObject);
         }
 

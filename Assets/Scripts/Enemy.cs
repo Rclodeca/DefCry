@@ -59,10 +59,6 @@ public class Enemy : MonoBehaviour
         //walk towards player
         transform.position = newPosition;
 
-        //rb.velocity = new Vector2(xDirection, yDirection);
-        //rb.MovePosition(Vector3.MoveTowards(transform.position, player.getPosition(), speed * Time.deltaTime));
-        /*Vector3 position = player.getPosition();
-        rb.velocity = new Vector2(position.x, position.y);*/
     }
     public static Enemy Create(Vector3 position, float speed)
     {
@@ -89,26 +85,14 @@ public class Enemy : MonoBehaviour
         animator.SetBool("Dead", true);
         rb.constraints = RigidbodyConstraints2D.FreezePosition;
         transform.GetComponent<CircleCollider2D>().enabled = false;
-        //Destroy(gameObject);
     }
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("hi");
-        if(collision.tag == "Player")
-        {
-            player.takeDamage();
-        }
-        //Destroy(gameObject);
-        //transform.position = (Vector3.MoveTowards(transform.position, new , speed * Time.deltaTime));
-    }*/
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Player" && health > 0)
         {
             damage();
             player.takeDamage();
-            //rb.velocity = new Vector2(0, 0);
         }
     }
 

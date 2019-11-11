@@ -15,7 +15,6 @@ public class PowerUp : MonoBehaviour
     {
         timer = duration;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        Debug.Log("hello");
     }
 
     // Update is called once per frame
