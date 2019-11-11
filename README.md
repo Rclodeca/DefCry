@@ -1,5 +1,7 @@
 GDD coming soon...
 
+.exe is in folder DefCry
+
 How To Play: 
   
 Move with WASD.   
